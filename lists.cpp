@@ -79,6 +79,22 @@ void CrearLista(T *&list, T *&last, T *&actual){
     return;
 }
 
+template <class T>
+void InsertarEnPosicion(T *&list, int position){
+    T *node = nullptr, *temp = nullptr;
+    node = new T;
+    temp = list;
+    for(int i=1; i<position-1;i++){
+        temp = temp->next;
+    }
+    node->next = temp->next;
+    temp->next = node;
+    node->prev = temp;
+    node->next->prev = node;
+    node->data = 200;
+    return;
+}
+
 int main(){
 
     List *lista = nullptr,
@@ -94,17 +110,12 @@ int main(){
         last->data = i;
     }
 
-    InsertarNodoPrincipio<List>(lista);
-    lista->data = 0;
+    InsertarEnPosicion<List>(lista,2);
 
-   // ImprimirListaReversa<List>(last);
 
-    actual = lista;
-    cout << actual->data;
-    AvanzarElementoLista(actual);
-    cout << actual->data;
-    RetrocederElementoLista(actual);
-    cout << actual->data;
+
+    ImprimirListaReversa<List>(last);
+
     getch();
     return 0;
 
