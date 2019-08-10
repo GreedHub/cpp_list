@@ -4,35 +4,35 @@
 #include<conio.h>
 
 using namespace std;
-
+/*
 template <class T>
-struct List{
+struct Node{
     T data;
     List* head = NULL;
     List* tail = NULL;
     List* next = NULL;
 };
-
+*/
 template <class T>
-struct Node{
+struct List{
     T data;
     List* next = NULL;
     List* prev = NULL;
 };
 
 template <class T>
-void InsertarNodoFinal(List *&list_last_item){
-    List *node = nullptr;
+bool InsertarNodoFinal(List<T> *&list_last_item){
+    List<T> *node = nullptr;
     node = new List<T>;
     list_last_item->next = node;
     node->prev = list_last_item;
     list_last_item = node;
-    return;
+    return true;
 }
 
 template <class T>
-void InsertarNodoPrincipio(List *&list){
-    List *node = nullptr;
+void InsertarNodoPrincipio(List<T> *&list){
+    List<T> *node = nullptr;
     node = new List<T>;
     list->prev = node;
     node->next = list;
@@ -41,8 +41,8 @@ void InsertarNodoPrincipio(List *&list){
 }
 
 template <class T>
-void ImprimirLista(List *list){
-    List *temp = nullptr;
+void ImprimirLista(List<T> *list){
+    List<T> *temp = nullptr;
     temp = list;
     while(temp!=NULL){
         cout << temp->data << endl;
@@ -51,8 +51,8 @@ void ImprimirLista(List *list){
 }
 
 template <class T>
-void ImprimirListaReversa(List *list_last_item){
-    List *temp = nullptr;
+void ImprimirListaReversa(List<T> *list_last_item){
+    List<T> *temp = nullptr;
     temp = list_last_item;
     while(temp!=NULL){
         cout << temp->data << endl;
@@ -61,7 +61,7 @@ void ImprimirListaReversa(List *list_last_item){
 }
 
 template <class T>
-void AvanzarElementoLista(List *&list_ptr){
+void AvanzarElementoLista(List<T> *&list_ptr){
 
     if(list_ptr->next != NULL){
         list_ptr = list_ptr->next;
@@ -70,7 +70,7 @@ void AvanzarElementoLista(List *&list_ptr){
 }
 
 template <class T>
-void RetrocederElementoLista(List *&list_ptr){
+void RetrocederElementoLista(List<T> *&list_ptr){
     if(list_ptr->prev != NULL){
         list_ptr = list_ptr->prev;
     }
@@ -78,8 +78,8 @@ void RetrocederElementoLista(List *&list_ptr){
 }
 
 template <class T>
-void CrearLista(List *&list, List *&last, List *&actual){
-    List *node = nullptr;
+void CrearLista(List<T> *&list, List<T> *&last, List<T> *&actual){
+    List<T> *node = nullptr;
     node = new List<T>;
     list = node;
     last = node;
@@ -88,8 +88,8 @@ void CrearLista(List *&list, List *&last, List *&actual){
 }
 
 template <class T>
-bool InsertarEnPosicion(List *&list, int position){
-    List *node = nullptr, *temp = nullptr;
+bool InsertarEnPosicion(List<T> *&list, int position){
+    List<T> *node = nullptr, *temp = nullptr;
     node = new List<T>;
     temp = list;
     if(position<1){
@@ -102,27 +102,27 @@ bool InsertarEnPosicion(List *&list, int position){
     temp->next = node;
     node->prev = temp;
     node->next->prev = node;
-    return;
+    return true;
 }
 
 int main(){
 
-    List *lista = nullptr,
+    List<int> *lista = nullptr,
 		 *last = nullptr,
 		 *actual = nullptr;
 
-    CrearLista<List>(lista,last,actual);
+    CrearLista<int>(lista,last,actual);
 
     lista->data = 1;
 
     for(int i=2; i<=100;i++){
-        InsertarNodoFinal<List>(last);
+        InsertarNodoFinal<int>(last);
         last->data = i;
     }
 
-    InsertarEnPosicion<List>(lista,2);
-	
-    ImprimirListaReversa<List>(last);
+    InsertarEnPosicion<int>(lista,2);
+
+    ImprimirListaReversa<int>(last);
 
     getch();
     return 0;
